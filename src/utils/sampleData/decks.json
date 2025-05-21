@@ -1,0 +1,20 @@
+{
+    "1": {
+      "firebaseKey": "1",
+      "title": "Dragon's Roar",
+      "description": "A deck filled with powerful dragons.",
+      "uid": "user123"
+    },
+    "2": {
+      "firebaseKey": "2",
+      "title": "Dark Magician's Might",
+      "description": "The ultimate spellcaster deck.",
+      "uid": "user123"
+    },
+    "3": {
+      "firebaseKey": "3",
+      "title": "Exodia's Wrath",
+      "description": "Assemble the forbidden one!",
+      "uid": "user456"
+    }
+}
