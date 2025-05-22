@@ -1,5 +1,4 @@
 import { clientCredentials } from '../utils/client';
-// API CALLS FOR BOOKS
 
 const endpoint = clientCredentials.databaseURL;
 
@@ -16,4 +15,58 @@ const getCardGallery = (tf) =>
       .catch(reject);
   });
 
-  export default getCardGallery
+  const createCard = (payload) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(Object.values(data)))
+      .catch(reject);
+  });
+
+  const updateCard = (payload) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards/${payload.firebaseKey}.json`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(Object.values(data)))
+      .catch(reject);
+  });
+
+const deleteCard = (firebaseKey) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards/${firebaseKey}.json`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(Object.values(data)))
+      .catch(reject);
+  });
+
+  const getCardbyDeck = (deckId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards.json?orderBy="deckId"&equalTo="${deckId}"`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(Object.values(data)))
+      .catch(reject);
+  });
+
+  export { getCardGallery, getCardbyDeck, createCard, updateCard, deleteCard }
