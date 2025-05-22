@@ -1,0 +1,124 @@
+  {
+  "cards": {
+    "1": {
+      "firebaseKey": 1,
+      "type": "Monster",
+      "class": "Dragon",
+      "atk": 3000,
+      "defence": 2500,
+      "image": "https://example.com/blue-eyes.jpg",
+      "abilities": "Piercing, Flying",
+      "description": "Blue-Eyes White Dragon, legendary among dragons.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "2": {
+      "firebaseKey": 2,
+      "type": "Monster",
+      "class": "Spellcaster",
+      "atk": 2500,
+      "defence": 2100,
+      "image": "https://example.com/dark-magician.jpg",
+      "abilities": "Dark Magic",
+      "description": "The ultimate wizard in terms of attack and defense.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "3": {
+      "firebaseKey": 3,
+      "type": "Monster",
+      "class": "Dragon",
+      "atk": 2400,
+      "defence": 2000,
+      "image": "https://example.com/red-eyes.jpg",
+      "abilities": "Flame Breath",
+      "description": "A ferocious dragon with a deadly attack.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "4": {
+      "firebaseKey": 4,
+      "type": "Monster",
+      "class": "Spellcaster",
+      "atk": 1700,
+      "defence": 1300,
+      "image": "https://example.com/magician-girl.jpg",
+      "abilities": "Draw Power",
+      "description": "A spellcaster with unpredictable tricks.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "5": {
+      "firebaseKey": 5,
+      "type": "Monster",
+      "class": "Fiend",
+      "atk": 1000,
+      "defence": 1000,
+      "image": "https://example.com/exodia-head.jpg",
+      "abilities": "Win Condition",
+      "description": "The head of Exodia. Combine with all limbs to win instantly.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "6": {
+      "firebaseKey": 6,
+      "type": "Monster",
+      "class": "Fiend",
+      "atk": 200,
+      "defence": 300,
+      "image": "https://example.com/exodia-left-arm.jpg",
+      "abilities": "Piece of Exodia",
+      "description": "Left Arm of the Forbidden One.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "7": {
+      "firebaseKey": 7,
+      "type": "Monster",
+      "class": "Fiend",
+      "atk": 200,
+      "defence": 300,
+      "image": "https://example.com/exodia-right-arm.jpg",
+      "abilities": "Piece of Exodia",
+      "description": "Right Arm of the Forbidden One.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "8": {
+      "firebaseKey": 8,
+      "type": "Monster",
+      "class": "Fiend",
+      "atk": 200,
+      "defence": 300,
+      "image": "https://example.com/exodia-left-leg.jpg",
+      "abilities": "Piece of Exodia",
+      "description": "Left Leg of the Forbidden One.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "9": {
+      "firebaseKey": 9,
+      "type": "Monster",
+      "class": "Fiend",
+      "atk": 200,
+      "defence": 300,
+      "image": "https://example.com/exodia-right-leg.jpg",
+      "abilities": "Piece of Exodia",
+      "description": "Right Leg of the Forbidden One.",
+      "fanMade": false,
+      "deckId": null
+    },
+    "10": {
+      "firebaseKey": 10,
+      "type": "Monster",
+      "class": "Dragon",
+      "atk": 2800,
+      "defence": 2300,
+      "image": "https://example.com/black-luster.jpg",
+      "abilities": "Ritual Summon",
+      "description": "Black Luster Soldier summoned via ritual.",
+      "fanMade": false,
+      "deckId": null
+    }
+  }
+}
