@@ -3,9 +3,10 @@
 
 import React, { useEffect, useState } from 'react';
 // import Link from 'next/link';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
 import { getCardGallery, getCardbyDeck } from '../api/cardData';
+import CardGallery from '../components/CardGallery';
 
 function Home() {
   const [cards, setCards] = useState([]);
@@ -15,7 +16,7 @@ function Home() {
   const getGallery = () => {
     getCardGallery(false).then(setCards);
   };
-
+  
   const getRandomCardsDeck = () => {
     let ranDeck = Math.floor((Math.random() * 2)) + 1
     getCardbyDeck(ranDeck).then(setDecks)
@@ -34,9 +35,13 @@ function Home() {
   }, [cards, decks])
 
   return (
-    <div className="text-center my-4">
-      WELCOME
-    </div>
+    <Row className='g-5'>
+      {cards.map(card => (
+        <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
+          <CardGallery cardObj={card}/>
+        </Col>
+      ))}
+    </Row>
   );
 }
 
