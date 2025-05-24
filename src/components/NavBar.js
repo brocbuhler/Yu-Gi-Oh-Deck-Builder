@@ -21,6 +21,9 @@ export default function NavBar() {
             <Link className="nav-link" href="/deck/new">
               New Deck
             </Link>
+            <Link className="nav-link" href="/profile/user">
+              Account
+            </Link>
           </Nav>
           <Button variant="danger" onClick={signOut}>
             Sign Out
