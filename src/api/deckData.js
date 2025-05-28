@@ -4,7 +4,7 @@ const endpoint = clientCredentials.databaseURL;
 
 const getDecksGallery = (uid) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/decks.json?orderBy="uid"&equalTo=${uid}`, {
+    fetch(`${endpoint}/decks.json?orderBy="uid"&equalTo="${uid}"`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
