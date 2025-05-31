@@ -3,10 +3,11 @@ import { Button, Card, FloatingLabel, Form } from 'react-bootstrap'
 import '../styles/cards.css';
 import { useAuth } from '../utils/context/authContext';
 import { getDecksGallery } from '../api/deckData';
-import { createCard } from '../api/cardData';
-// import { useAuth } from '../../utils/context/authContext'
+import { createCard, updateCard } from '../api/cardData';
+import { useRouter } from 'next/navigation';
 // aspect ratio for the cards is 86 : 125
 export default function CardGallery({ cardObj }) {
+  const router = useRouter();
   const [deckList, setDeckList] = useState([]);
   const [deckSelector, setDeckSelector] = useState('');
   const { user } = useAuth();
@@ -20,7 +21,7 @@ export default function CardGallery({ cardObj }) {
   }, []);
 
   const addCardToDeck = () => {
-    let payload = {
+    const payload = {
       abilities: cardObj.abilities,
       atk: cardObj.atk,
       class: cardObj.class,
@@ -29,10 +30,16 @@ export default function CardGallery({ cardObj }) {
       fanMade: cardObj.fanMade,
       image: cardObj.image,
       type: cardObj.type,
-      deckId: deckSelector
-    }
-    createCard(payload)
-  }
+      deckId: deckSelector,
+    };
+
+    createCard(payload).then(({ name }) => {
+      const patchPayload = { ...payload, firebaseKey: name }; 
+      updateCard(patchPayload).then(() => {
+        router.push("/");
+      });
+    });
+  };
 
   return (
     <Card className="card-hover h-100 border-1 border-white overflow-hidden">

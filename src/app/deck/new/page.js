@@ -1,9 +1,10 @@
 import React from 'react'
+import DeckForm from '../../../components/forms/DeckForm'
 
 export default function page() {
   return (
     <div>
-      this is the new deck page
+      <DeckForm/>
     </div>
   )
 }
