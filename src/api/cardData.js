@@ -11,7 +11,11 @@ const getCardGallery = (tf) =>
       },
     })
       .then((response) => response.json())
-      .then((data) => resolve(Object.values(data)))
+      .then((data) => {
+        const allCards = Object.values(data || {});
+        const cardsWithoutDeck = allCards.filter((card) => !card.deckId);
+        resolve(cardsWithoutDeck);
+      })
       .catch(reject);
   });
 
@@ -25,7 +29,7 @@ const getCardGallery = (tf) =>
       body: JSON.stringify(payload),
     })
       .then((response) => response.json())
-      .then((data) => resolve(Object.values(data)))
+      .then((data) => resolve(data)) 
       .catch(reject);
   });
 

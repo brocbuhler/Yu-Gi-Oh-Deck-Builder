@@ -25,7 +25,7 @@ const getDecksGallery = (uid) =>
       body: JSON.stringify(payload),
     })
       .then((response) => response.json())
-      .then((data) => resolve(Object.values(data)))
+      .then((data) => resolve(data)) 
       .catch(reject);
   });
 
