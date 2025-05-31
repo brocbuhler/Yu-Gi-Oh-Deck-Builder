@@ -1,9 +1,10 @@
 import React from 'react'
+import CardForm from '../../../components/forms/CardForm'
 
-export default function page() {
+export default function NewCard() {
   return (
     <div>
-      This is the new card page
+      <CardForm/>
     </div>
   )
 }
