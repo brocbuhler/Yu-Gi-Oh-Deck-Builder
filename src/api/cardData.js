@@ -19,6 +19,23 @@ const getCardGallery = (tf) =>
       .catch(reject);
   });
 
+const getUserCards = (uid) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards.json?orderBy="uid"&equalTo="${uid}"`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const allCards = Object.values(data || {});
+        const cardsWithoutDeck = allCards.filter((card) => !card.deckId);
+        resolve(cardsWithoutDeck);
+      })
+      .catch(reject);
+  });
+
   const createCard = (payload) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/cards.json`, {
@@ -73,4 +90,4 @@ const deleteCard = (firebaseKey) =>
       .catch(reject);
   });
 
-  export { getCardGallery, getCardbyDeck, createCard, updateCard, deleteCard }
+  export { getCardGallery, getUserCards, getCardbyDeck, createCard, updateCard, deleteCard }
