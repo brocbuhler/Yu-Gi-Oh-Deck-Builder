@@ -5,19 +5,25 @@ import { useAuth } from '../../../utils/context/authContext';
 import { Card, Col, Row } from 'react-bootstrap';
 import { getUserCards } from '../../../api/cardData';
 import CardGallery from '../../../components/CardGallery';
-
+import DeckGallery from '../../../components/DeckGallery';
+import { getDecksGallery } from '../../../api/deckData';
 
 
 function UserPage() {
   const { user } = useAuth();
   const [cards, setCards] = useState([]);
+  const [decks, setDecks] = useState([]);
 
   const getGallery = () => {
     getUserCards(user.uid).then(setCards);
   };
 
+  const getDecks = () => {
+    getDecksGallery(user.uid).then(setDecks)
+  }
   useEffect(() => {
     getGallery();
+    getDecks();
     console.log(`this is the user ID:`, user.uid)
   }, []);
 
@@ -38,6 +44,13 @@ function UserPage() {
           </Col>
         ))}
       </Row>
+      <div>
+      <Row className='g-5'>
+        {decks.map(deck => (
+          <DeckGallery deckObj={deck}/>
+        ))}
+      </Row>
+      </div>
     </div>
   )
 }
