@@ -53,6 +53,7 @@ export default function DeckForm({ dek = deckInit }) {
             name="title"
             value={deckInput.title}
             onChange={deckChange}
+            required
           />
         </Form.Group>
 
@@ -65,6 +66,7 @@ export default function DeckForm({ dek = deckInit }) {
             name="description"
             value={deckInput.description}
             onChange={deckChange}
+            required
           />
         </Form.Group>
 
