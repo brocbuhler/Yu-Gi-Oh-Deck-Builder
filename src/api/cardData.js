@@ -19,6 +19,19 @@ const getCardGallery = (tf) =>
       .catch(reject);
   });
 
+  const getSingleCard = (firebaseKey) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards.json?orderBy="firebaseKey"&equalTo="${firebaseKey}"`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data)) 
+      .catch(reject);
+  });
+
 const getUserCards = (uid) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/cards.json?orderBy="uid"&equalTo="${uid}"`, {
@@ -90,4 +103,4 @@ const deleteCard = (firebaseKey) =>
       .catch(reject);
   });
 
-  export { getCardGallery, getUserCards, getCardbyDeck, createCard, updateCard, deleteCard }
+  export { getCardGallery, getUserCards, getCardbyDeck, createCard, updateCard, deleteCard, getSingleCard }

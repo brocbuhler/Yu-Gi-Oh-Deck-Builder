@@ -31,7 +31,7 @@ export default function DeckForm({ dek = deckInit }) {
       createDeck(payload).then(({ name }) => {
         const patchPayload = { ...payload, firebaseKey: name };
         updateDeck(patchPayload).then(() => {
-          router.push("/");
+          router.push("/profile/user");
         });
       });
     }

@@ -81,6 +81,7 @@ export default function CardGallery({ cardObj, userControls = false, update }) {
                 <>
                   <Button type='button' onClick={() => {
                     console.log("edit button clicked")
+                    router.push(`/card/edit/${cardObj.firebaseKey}`)
                   }}>
                     Edit           
                   </Button>
