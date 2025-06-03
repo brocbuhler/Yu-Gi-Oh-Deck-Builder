@@ -9,7 +9,7 @@ https://www.figma.com/board/bmG7FwbZz6eXoqvR3pDCQs/YGO-DB-wireframe?node-id=1-21
 
 # Checkout the website!!
 
-[netlify]
+[(https://ygobuilder.netlify.app/)]
 
 # Checkout my feature progress
 
