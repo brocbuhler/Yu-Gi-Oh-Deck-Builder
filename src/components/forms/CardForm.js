@@ -91,6 +91,7 @@ export default function CardForm({card = cardInit}) {
             type='url'
             value={cardInput.image}
             onChange={cardChange}
+            required
           />
         </Form.Group>
 
@@ -101,6 +102,7 @@ export default function CardForm({card = cardInit}) {
             name="type"
             value={cardInput.type}
             onChange={cardChange}
+            required
           >
             <option value="">Select a Type</option>
             <option value="DARK">DARK</option>
@@ -120,6 +122,7 @@ export default function CardForm({card = cardInit}) {
             name="class"
             value={cardInput.class}
             onChange={cardChange}
+            required
           />
         </Form.Group>
 
@@ -130,6 +133,7 @@ export default function CardForm({card = cardInit}) {
             name="atk"
             value={cardInput.atk}
             onChange={cardChange}
+            required
           />
         </Form.Group>
         
@@ -140,6 +144,7 @@ export default function CardForm({card = cardInit}) {
             name="defence"
             value={cardInput.defence}
             onChange={cardChange}
+            required
           />
         </Form.Group>
 
@@ -152,6 +157,7 @@ export default function CardForm({card = cardInit}) {
             name="abilities"
             value={cardInput.abilities}
             onChange={cardChange}
+            required
           />
         </Form.Group>
 
@@ -164,6 +170,7 @@ export default function CardForm({card = cardInit}) {
             name="description"
             value={cardInput.description}
             onChange={cardChange}
+            required
           />
         </Form.Group>
 

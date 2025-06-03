@@ -6,7 +6,7 @@ import { getDecksGallery } from '../api/deckData';
 import { createCard, deleteCard, updateCard } from '../api/cardData';
 import { useRouter } from 'next/navigation';
 // aspect ratio for the cards is 86 : 125
-export default function CardGallery({ cardObj, userControls = false, update }) {
+export default function CardGallery({ cardObj, userEdit = false, userDelete = false, update }) { 
   const router = useRouter();
   const [deckList, setDeckList] = useState([]);
   const [deckSelector, setDeckSelector] = useState('');
@@ -43,8 +43,9 @@ export default function CardGallery({ cardObj, userControls = false, update }) {
 
   const deleteUserCard = (key) => {
     console.log("delete card:", key)
-    deleteCard(key).then(console.log("card", cardObj.firebaseKey, "is deleted"))
-    if (update) update();
+    deleteCard(key).then(() => {
+      if (update) update();
+    })
   };
 
   return (
@@ -63,7 +64,8 @@ export default function CardGallery({ cardObj, userControls = false, update }) {
             onClick={() => {
               console.log('Selected Deck:', deckSelector);
               console.log('Card to Add:', cardObj);
-              addCardToDeck(); 
+              addCardToDeck();
+              alert('Card added to deck!')
             }}>Add to Deck?</Button>
           <FloatingLabel controlId='floatingSelect' label="Decks:">
              <Form.Select aria-label="Decks:" name="deckId" onChange={(e) => setDeckSelector(e.target.value)} className="mb-3">
@@ -75,7 +77,7 @@ export default function CardGallery({ cardObj, userControls = false, update }) {
               ))}
             </Form.Select>
           </FloatingLabel>
-              {userControls && (
+              {userEdit && (
                 <>
                   <Button type='button' onClick={() => {
                     console.log("edit button clicked")
@@ -83,6 +85,10 @@ export default function CardGallery({ cardObj, userControls = false, update }) {
                   }}>
                     Edit           
                   </Button>
+                </>
+              )}
+              {userDelete && (
+                <>
                   <Button type='button' onClick={() => {
                     console.log("delete button clicked")
                     deleteUserCard(cardObj.firebaseKey);
