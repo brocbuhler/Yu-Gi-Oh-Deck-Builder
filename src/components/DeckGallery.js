@@ -1,18 +1,15 @@
 import React from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { deleteDeck } from '../api/deckData'
+import { useRouter } from 'next/navigation'
 
 // aspect ratio for the cards is 86 : 125
 
 export default function DeckGallery({ deckObj, update}) {
-
+  const router = useRouter()
   const deleteUserDeck = (key) => {
     deleteDeck(key).then(console.log("Deck", deckObj.title, "has been deleted"))
     if (update) update();
-  }
-
-  const editUserDeck = () => {
-  
   }
 
   return (
@@ -21,6 +18,7 @@ export default function DeckGallery({ deckObj, update}) {
       <Card.Text>{deckObj.description}</Card.Text>
       <Button type='button' onClick={() => {
         console.log("edit button clicked!")
+        router.push(`/deck/edit/${deckObj.firebaseKey}`)
       }}>
         Edit
       </Button>

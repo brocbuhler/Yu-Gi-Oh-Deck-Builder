@@ -47,8 +47,6 @@ export default function CardGallery({ cardObj, userControls = false, update }) {
     if (update) update();
   };
 
-  const editUserCard = () => {};
-
   return (
     <Card className="card-hover h-100 border-1 border-white overflow-hidden">
       <Card.Img src={cardObj.image}/>
