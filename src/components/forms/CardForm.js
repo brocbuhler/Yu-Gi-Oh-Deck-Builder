@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createCard, updateCard } from '../../api/cardData';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../utils/context/authContext';
@@ -18,9 +18,11 @@ const cardInit = {
 };
 
 export default function CardForm({card = cardInit}) {
+  console.log("cardForm running")
   const { user } = useAuth();
   const [cardInput, setCardInput] = useState(card);
   const router = useRouter();
+
   const cardChange = (e) => {
     const {name, value } = e.target;
     setCardInput((prevState) => ({
@@ -28,10 +30,20 @@ export default function CardForm({card = cardInit}) {
       [name]: value,
     }));
   };
+
   const cardSubmit = (e) => {
     e.preventDefault();
     if (card.firebaseKey) {
-      console.log("edit not set up yet");
+      const payload = {
+        ...cardInput,
+        atk: parseInt(cardInput.atk, 10) || 0,
+        defence: parseInt(cardInput.defence, 10) || 0,
+        fanMade: true,
+        uid: user.uid
+      };
+      updateCard(payload).then(() => {
+        router.push("/profile/user")
+      })
     } else {
       const payload = {
         ...cardInput,
@@ -43,11 +55,28 @@ export default function CardForm({card = cardInit}) {
       createCard(payload).then(({ name }) => {
         const patchPayload = { ...payload, firebaseKey: name };
         updateCard(patchPayload).then(() => {
-          router.push("/");
+          router.push("/profile/user");
         });
       });
     }
   };
+
+  useEffect(() => {
+  setCardInput({
+    abilities: card.abilities || '',
+    atk: card.atk || '',
+    class: card.class || '',
+    defence: card.defence || '',
+    description: card.description || '',
+    fanMade: card.fanMade || '',
+    image: card.image || '',
+    type: card.type || '',
+    firebaseKey: card.firebaseKey || '',
+  });
+}, [card]);
+
+  console.log("CardForm loaded with input:", cardInput);
+
 
   return (
     <div>
@@ -69,8 +98,8 @@ export default function CardForm({card = cardInit}) {
           <Form.Label>Type</Form.Label>
           <Form.Control
             as='select'
-            name="Type"
-            value={cardInput.Type}
+            name="type"
+            value={cardInput.type}
             onChange={cardChange}
           >
             <option value="">Select a Type</option>

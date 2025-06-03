@@ -3,10 +3,10 @@ import { Button, Card, FloatingLabel, Form } from 'react-bootstrap'
 import '../styles/cards.css';
 import { useAuth } from '../utils/context/authContext';
 import { getDecksGallery } from '../api/deckData';
-import { createCard, updateCard } from '../api/cardData';
+import { createCard, deleteCard, updateCard } from '../api/cardData';
 import { useRouter } from 'next/navigation';
 // aspect ratio for the cards is 86 : 125
-export default function CardGallery({ cardObj }) {
+export default function CardGallery({ cardObj, userControls = false, update }) {
   const router = useRouter();
   const [deckList, setDeckList] = useState([]);
   const [deckSelector, setDeckSelector] = useState('');
@@ -41,6 +41,12 @@ export default function CardGallery({ cardObj }) {
     });
   };
 
+  const deleteUserCard = (key) => {
+    console.log("delete card:", key)
+    deleteCard(key).then(console.log("card", cardObj.firebaseKey, "is deleted"))
+    if (update) update();
+  };
+
   return (
     <Card className="card-hover h-100 border-1 border-white overflow-hidden">
       <Card.Img src={cardObj.image}/>
@@ -69,6 +75,22 @@ export default function CardGallery({ cardObj }) {
               ))}
             </Form.Select>
           </FloatingLabel>
+              {userControls && (
+                <>
+                  <Button type='button' onClick={() => {
+                    console.log("edit button clicked")
+                    router.push(`/card/edit/${cardObj.firebaseKey}`)
+                  }}>
+                    Edit           
+                  </Button>
+                  <Button type='button' onClick={() => {
+                    console.log("delete button clicked")
+                    deleteUserCard(cardObj.firebaseKey);
+                  }}>
+                    Delete
+                  </Button>
+                </>
+              )}
         </div>
     </Card>
   )

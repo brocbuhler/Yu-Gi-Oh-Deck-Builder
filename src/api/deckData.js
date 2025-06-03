@@ -15,6 +15,19 @@ const getDecksGallery = (uid) =>
       .catch(reject);
   });
 
+const getSingleDeck = (firebaseKey) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/decks.json?orderBy="firebaseKey"&equalTo="${firebaseKey}"`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data)) 
+      .catch(reject);
+  });
+
   const createDeck = (payload) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/decks.json`, {
@@ -52,8 +65,8 @@ const deleteDeck = (firebaseKey) =>
       },
     })
       .then((response) => response.json())
-      .then((data) => resolve(Object.values(data)))
+      .then((data) => resolve(data)) 
       .catch(reject);
   });
 
-  export { getDecksGallery, createDeck, updateDeck, deleteDeck}
+  export { getDecksGallery, createDeck, updateDeck, deleteDeck, getSingleDeck}

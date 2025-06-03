@@ -40,14 +40,14 @@ function UserPage() {
       <Row className='g-5'>
         {cards.map(card => (
           <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
-            <CardGallery cardObj={card}/>
+            <CardGallery cardObj={card} userControls="true" update={getGallery}/>
           </Col>
         ))}
       </Row>
       <div>
       <Row className='g-5'>
         {decks.map(deck => (
-          <DeckGallery deckObj={deck}/>
+          <DeckGallery deckObj={deck} update={getDecks}/>
         ))}
       </Row>
       </div>
