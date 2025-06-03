@@ -38,7 +38,7 @@ function Home() {
     <Row className='g-5'>
       {cards.map(card => (
         <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
-          <CardGallery cardObj={card}/>
+          <CardGallery cardObj={card} update={getGallery}/>
         </Col>
       ))}
     </Row>

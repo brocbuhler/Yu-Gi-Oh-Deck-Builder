@@ -36,7 +36,7 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
     createCard(payload).then(({ name }) => {
       const patchPayload = { ...payload, firebaseKey: name }; 
       updateCard(patchPayload).then(() => {
-        router.push("/");
+        if (update) update();
       });
     });
   };
@@ -61,12 +61,15 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
             {cardObj.description}
           </div>
           <Button type="button"
+            disabled={!deckSelector}
             onClick={() => {
               console.log('Selected Deck:', deckSelector);
               console.log('Card to Add:', cardObj);
               addCardToDeck();
               alert('Card added to deck!')
-            }}>Add to Deck?</Button>
+            }}>Add to Deck?
+              {!deckSelector && <div className="text-warning mt-2">Please select a deck first</div>}
+          </Button>
           <FloatingLabel controlId='floatingSelect' label="Decks:">
              <Form.Select aria-label="Decks:" name="deckId" onChange={(e) => setDeckSelector(e.target.value)} className="mb-3">
             <option value="">Decks:</option>
