@@ -9,7 +9,7 @@ https://www.figma.com/board/bmG7FwbZz6eXoqvR3pDCQs/YGO-DB-wireframe?node-id=1-21
 
 # Checkout the website!!
 
-[(https://ygobuilder.netlify.app/)]
+[Checkout the website!!](https://ygobuilder.netlify.app/)
 
 # Checkout my feature progress
 
@@ -36,6 +36,32 @@ This is for the YGO card hobbies who wants to put together decks with ease witho
 ![Account Screenshot](./ygoimages/YGOMVPDECKFORM.PNG)
 ![Account Screenshot](./ygoimages/YGOMVPACCOUNT.PNG)
 ![Account Screenshot](./ygoimages/YGOMVPDECKVIEW.PNG)
+
+# How I've grown from this project
+
+Before:
+![Account Screenshot](./ygoimages/BranchesBefore.PNG)
+What feature is make it work? or finalCountdown
+After:
+![Account Screenshot](./ygoimages/BranchesAfter.PNG)
+
+I now code each branch as a feature
+
+Before:
+![Account Screenshot](./ygoimages/CommitsBefore.PNG)
+What does try this chris mean?
+After:
+![Account Screenshot](./ygoimages/CommitsAfter.PNG)
+
+I now commit useful measages that tell me what I was working on with that submit
+
+Before:
+![Account Screenshot](./ygoimages/Component before.PNG)
+289! on a simple home page
+After:
+![Account Screenshot](./ygoimages/Component after.PNG)
+
+Most of my logic now stays in my components and my pages are for displaying that logic and dynamically updating it
 
 # Contributors
 
