@@ -56,10 +56,10 @@ After:
 I now commit useful measages that tell me what I was working on with that submit
 
 Before:
-![Account Screenshot](./ygoimages/Component before.PNG)
+![Account Screenshot](./ygoimages/ComponentBefore.PNG)
 289! on a simple home page
 After:
-![Account Screenshot](./ygoimages/Component after.PNG)
+![Account Screenshot](./ygoimages/ComponentAfter.PNG)
 
 Most of my logic now stays in my components and my pages are for displaying that logic and dynamically updating it
 
