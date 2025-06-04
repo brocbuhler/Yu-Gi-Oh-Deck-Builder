@@ -37,6 +37,11 @@ This is for the YGO card hobbies who wants to put together decks with ease witho
 ![Account Screenshot](./ygoimages/YGOMVPACCOUNT.PNG)
 ![Account Screenshot](./ygoimages/YGOMVPDECKVIEW.PNG)
 
+# Contributors
+
+ME
+https://github.com/brocbuhler
+
 # Loom
 
 https://www.loom.com/share/89479cc63c8a432fa012185bf02171f3

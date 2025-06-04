@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { createCard, updateCard } from '../../api/cardData';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../utils/context/authContext';
-import { Button, Form } from 'react-bootstrap';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { getDecksGallery } from '../../api/deckData';
 
 const cardInit = {
       abilities:"",
@@ -22,6 +23,8 @@ export default function CardForm({card = cardInit}) {
   const { user } = useAuth();
   const [cardInput, setCardInput] = useState(card);
   const router = useRouter();
+  const [deckList, setDeckList] = useState([]);
+  const [deckSelector, setDeckSelector] = useState('');
 
   const cardChange = (e) => {
     const {name, value } = e.target;
@@ -31,35 +34,51 @@ export default function CardForm({card = cardInit}) {
     }));
   };
 
-  const cardSubmit = (e) => {
-    e.preventDefault();
-    if (card.firebaseKey) {
-      const payload = {
-        ...cardInput,
-        atk: parseInt(cardInput.atk, 10) || 0,
-        defence: parseInt(cardInput.defence, 10) || 0,
-        fanMade: true,
-        uid: user.uid
-      };
-      updateCard(payload).then(() => {
-        router.push("/profile/user")
-      })
-    } else {
-      const payload = {
-        ...cardInput,
-        atk: parseInt(cardInput.atk, 10) || 0,
-        defence: parseInt(cardInput.defence, 10) || 0,
-        fanMade: true,
-        uid: user.uid
-      };
-      createCard(payload).then(({ name }) => {
-        const patchPayload = { ...payload, firebaseKey: name };
-        updateCard(patchPayload).then(() => {
-          router.push("/profile/user");
-        });
-      });
-    }
+  const grabDeckList = () => {
+    getDecksGallery(user.uid).then(setDeckList)
+  }
+
+
+
+const cardSubmit = (e) => {
+  e.preventDefault();
+
+  const payload = {
+    ...cardInput,
+    atk: parseInt(cardInput.atk, 10) || 0,
+    defence: parseInt(cardInput.defence, 10) || 0,
+    fanMade: true,
+    uid: user.uid
   };
+
+  if (card.firebaseKey) {
+    updateCard(payload).then(() => {
+      router.push("/profile/user");
+    });
+  } else {
+    createCard(payload).then(({ name }) => {
+      const patchPayload = { ...payload, firebaseKey: name };
+      updateCard(patchPayload).then(() => {
+        if (cardInput.deckId) {
+          const copiedPayload = {
+            ...payload,
+            deckId: '', 
+            fanMade: true,
+            uid: user.uid
+          };
+          createCard(copiedPayload).then(({ name: copyKey }) => {
+            const finalCopy = { ...copiedPayload, firebaseKey: copyKey };
+            updateCard(finalCopy).then(() => {
+              router.push("/profile/user");
+            });
+          });
+        } else {
+          router.push("/profile/user");
+        }
+      });
+    });
+  }
+};
 
   useEffect(() => {
   setCardInput({
@@ -72,7 +91,9 @@ export default function CardForm({card = cardInit}) {
     image: card.image || '',
     type: card.type || '',
     firebaseKey: card.firebaseKey || '',
+    deckId: deckSelector || '',
   });
+  grabDeckList()
 }, [card]);
 
   console.log("CardForm loaded with input:", cardInput);
@@ -173,6 +194,21 @@ export default function CardForm({card = cardInit}) {
             required
           />
         </Form.Group>
+
+        <FloatingLabel controlId='floatingSelect' label="Add card to a Deck?">
+          <Form.Select aria-label="Decks:" name="deckId" onChange={(e) => {
+              const value = e.target.value;
+              setDeckSelector(value);
+              cardChange(e);
+            }} className="mb-3">
+            <option value="">No deck selected</option>
+            {deckList.map((deck) => (
+              <option key={deck.firebaseKey} value={deck.firebaseKey}>
+              TITLE: {deck.title} | {deck.description}
+              </option>
+            ))}
+          </Form.Select>
+        </FloatingLabel>
 
         <Button type="submit">{card.firebaseKey ? "Edit" : "Make"} card</Button>
       </Form>
