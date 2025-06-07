@@ -2,15 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { useAuth } from '@/utils/context/authContext'; 
 import { getCardbyDeck } from '@/api/cardData';         
 import CardGallery from '@/components/CardGallery';     
+import DrawButton from '@/components/DrawButton';
 import { useParams } from 'next/navigation';
 
 
 export default function DeckPage() {
   const [cards, setCards] = useState([]);
-  const { user } = useAuth();
   const params = useParams();
   const deckId = params.firebaseKey
 
@@ -18,17 +17,19 @@ export default function DeckPage() {
     getCardbyDeck(deckId).then(setCards);
   };
 
+  const cardDraw = () => {
+    let cardList = cards.length
+    let randomCard = Math.floor(Math.random() * cardList) 
+    return cards[randomCard]
+  }
+
   useEffect(() => {
     getGallery();
-    console.log('API KEY:', process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-    console.log(`This is your uid:`, user.uid)
   }, []);
-  
-  useEffect(() => {
-    console.log(`Here is the card Gallery:`, cards)
-  }, [cards])
 
   return (
+    <>
+    <DrawButton draw={cardDraw}/>
     <Row className='g-5'>
       {cards.map(card => (
         <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
@@ -36,5 +37,6 @@ export default function DeckPage() {
         </Col>
       ))}
     </Row>
+    </>
   );
 }
