@@ -14,6 +14,9 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
+            <Link className="nav-link" href="/deck/fan">
+              Fan Gallery
+            </Link>
             <Link className="nav-link" href="/card/new">
               New Card
             </Link>
