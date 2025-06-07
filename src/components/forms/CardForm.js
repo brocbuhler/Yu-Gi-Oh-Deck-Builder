@@ -16,6 +16,7 @@ const cardInit = {
       fanMade:"",
       image:"",
       type:"",
+      prevDeckId:"",
 };
 
 export default function CardForm({card = cardInit}) {
@@ -48,13 +49,39 @@ const cardSubmit = (e) => {
     atk: parseInt(cardInput.atk, 10) || 0,
     defence: parseInt(cardInput.defence, 10) || 0,
     fanMade: true,
-    uid: user.uid
+    uid: user.uid,
   };
 
   if (card.firebaseKey) {
-    updateCard(payload).then(() => {
-      router.push("/profile/user");
-    });
+    const deckSelectorChecker = deckSelector && deckSelector !== card.prevDeckId;
+
+    if (deckSelectorChecker) {
+      const updatePayload = {
+        ...payload,
+        prevDeckId: deckSelector,
+        deckId: '',
+      };
+
+      updateCard(updatePayload).then(() => {
+        const copyCardPayload = {
+          ...payload,
+          deckId: deckSelector,
+          prevDeckId: "",
+          firebaseKey: "",
+        };
+
+        createCard(copyCardPayload).then(({ name }) => {
+          const finalNewCopy = { ...copyCardPayload, firebaseKey: name };
+          updateCard(finalNewCopy).then(() => {
+            router.push('/profile/user');
+          });
+        });
+      });
+    } else {
+      updateCard(payload).then(() => {
+        router.push("/profile/user");
+      });
+    }
   } else {
     createCard(payload).then(({ name }) => {
       const patchPayload = { ...payload, firebaseKey: name };
@@ -62,9 +89,10 @@ const cardSubmit = (e) => {
         if (cardInput.deckId) {
           const copiedPayload = {
             ...payload,
-            deckId: '', 
+            prevDeckId: cardInput.deckId,
+            deckId: '',
             fanMade: true,
-            uid: user.uid
+            uid: user.uid,
           };
           createCard(copiedPayload).then(({ name: copyKey }) => {
             const finalCopy = { ...copiedPayload, firebaseKey: copyKey };
@@ -81,6 +109,8 @@ const cardSubmit = (e) => {
 };
 
   useEffect(() => {
+    const initDeckId = card.prevDeckId
+    setDeckSelector(initDeckId)
   setCardInput({
     abilities: card.abilities || '',
     atk: card.atk || '',
@@ -91,7 +121,7 @@ const cardSubmit = (e) => {
     image: card.image || '',
     type: card.type || '',
     firebaseKey: card.firebaseKey || '',
-    deckId: deckSelector || '',
+    deckId: initDeckId,
   });
   grabDeckList()
 }, [card]);
@@ -196,7 +226,7 @@ const cardSubmit = (e) => {
         </Form.Group>
 
         <FloatingLabel controlId='floatingSelect' label="Add card to a Deck?">
-          <Form.Select aria-label="Decks:" name="deckId" onChange={(e) => {
+          <Form.Select aria-label="Decks:" name="deckId" value={deckSelector} onChange={(e) => {
               const value = e.target.value;
               setDeckSelector(value);
               cardChange(e);
