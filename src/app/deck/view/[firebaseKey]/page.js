@@ -1,40 +1,73 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
-import { useAuth } from '@/utils/context/authContext'; 
+import { Button, Col, Row } from 'react-bootstrap';
 import { getCardbyDeck } from '@/api/cardData';         
 import CardGallery from '@/components/CardGallery';     
+import DrawButton from '@/components/DrawButton';
 import { useParams } from 'next/navigation';
+import { getSingleDeck } from '../../../../api/deckData';
 
 
 export default function DeckPage() {
   const [cards, setCards] = useState([]);
-  const { user } = useAuth();
+  const [draws, setDraws] = useState([]);
+  const [deck, setDeck] = useState({})
+  const [drawMode, setDrawMode] = useState(false);
   const params = useParams();
   const deckId = params.firebaseKey
+  console.log('deckId:', deckId)
 
   const getGallery = () => {
     getCardbyDeck(deckId).then(setCards);
+    setDrawMode(false)
   };
+  const getDeck = () => {
+     getSingleDeck(deckId).then(setDeck);
+  }
+
+  const cardDraw = (amount) => {
+    const drawn = [];
+    let cardList = [...cards]
+    const drawCount = Math.min(amount, cardList.length)
+    for (let i=0; i < drawCount; i++) {
+    let randomCards = Math.floor(Math.random() * cardList.length) 
+    drawn.push(cardList[randomCards])
+    cardList.splice(randomCards, 1)
+    }
+    setDraws(drawn)
+    setDrawMode(true)
+    return drawn
+  }
 
   useEffect(() => {
     getGallery();
-    console.log('API KEY:', process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-    console.log(`This is your uid:`, user.uid)
+    getDeck();
   }, []);
-  
-  useEffect(() => {
-    console.log(`Here is the card Gallery:`, cards)
-  }, [cards])
 
   return (
-    <Row className='g-5'>
-      {cards.map(card => (
-        <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
-          <CardGallery cardObj={card} userDelete="true" update={getGallery}/>
-        </Col>
-      ))}
-    </Row>
+    <>
+      {!drawMode ? (<h1>{deck.title}</h1>) : null}
+      <DrawButton draw={cardDraw} />
+
+      <Row className='g-5'>
+        {drawMode && draws ? (
+          draws.map(draw => (
+          <Col key={draw.firebaseKey} xs={8} sm={6} md={5} lg={4}>
+            <CardGallery cardObj={draw} userDelete="true" update={getGallery} />
+          </Col>
+          ))
+        ) : (
+          cards.map(card => (
+            <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
+              <CardGallery cardObj={card} userDelete="true" update={getGallery} />
+            </Col>
+          ))
+        )}
+      </Row>
+        {drawMode ? (
+      <Button onClick={() => setDrawMode(false)}>Back to deck</Button>
+        ) : null}
+    </>
   );
 }
