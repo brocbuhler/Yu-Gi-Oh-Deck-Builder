@@ -24,7 +24,10 @@ const getSingleDeck = (firebaseKey) =>
       },
     })
       .then((response) => response.json())
-      .then((data) => resolve(data)) 
+      .then((data) => {
+        const deckArray = Object.values(data);
+        resolve(deckArray[0] || null); 
+      })
       .catch(reject);
   });
 
