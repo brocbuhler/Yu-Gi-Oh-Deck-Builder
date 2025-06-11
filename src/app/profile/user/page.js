@@ -7,6 +7,7 @@ import { getUserCards } from '../../../api/cardData';
 import CardGallery from '../../../components/CardGallery';
 import DeckGallery from '../../../components/DeckGallery';
 import { getDecksGallery } from '../../../api/deckData';
+import PublicButton from '../../../components/PublicButton';
 
 
 function UserPage() {
@@ -29,6 +30,7 @@ function UserPage() {
 
   return (
     <div>
+      <PublicButton/>
       <Card className='h-100 w-50 border-3 border-white'>
         <h1>{user.displayName}</h1>
         <Card.Img variant='top'
