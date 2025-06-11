@@ -2,6 +2,38 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;  
   
+const getUserGallery = () =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/users.json`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const allCards = Object.values(data || {});
+        const cardsWithoutDeck = allCards.filter((card) => !card.deckId);
+        resolve(cardsWithoutDeck);
+      })
+      .catch(reject);
+  });
+
+const getSingleUser = (savedUID) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/users.json?orderBy="savedUID"&equalTo="${savedUID}"`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const user = data && Object.values(data)[0];
+        resolve(user);
+      })
+      .catch(reject);
+  });
 
   const saveUser = (payload) =>
   new Promise((resolve, reject) => {
@@ -31,4 +63,4 @@ const endpoint = clientCredentials.databaseURL;
         .catch(reject);
     }); 
 
-  export { saveUser, updateUser }
+  export { saveUser, updateUser, getUserGallery, getSingleUser }

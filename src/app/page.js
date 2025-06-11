@@ -10,7 +10,6 @@ import CardGallery from '../components/CardGallery';
 
 function Home() {
   const [cards, setCards] = useState([]);
-  const { user } = useAuth();
 
   const getGallery = () => {
     getCardGallery(false).then(setCards);

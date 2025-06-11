@@ -8,12 +8,14 @@ import CardGallery from '../../../components/CardGallery';
 import DeckGallery from '../../../components/DeckGallery';
 import { getDecksGallery } from '../../../api/deckData';
 import PublicButton from '../../../components/PublicButton';
+import { getSingleUser } from '../../../api/savedUserData';
 
 
 function UserPage() {
   const { user } = useAuth();
   const [cards, setCards] = useState([]);
   const [decks, setDecks] = useState([]);
+  const [builder, setbuilder] = useState({});
 
   const getGallery = () => {
     getUserCards(user.uid).then(setCards);
@@ -22,7 +24,12 @@ function UserPage() {
   const getDecks = () => {
     getDecksGallery(user.uid).then(setDecks)
   }
+
+  const getBuilder = () => {
+    getSingleUser(user.uid).then(setbuilder)
+  }
   useEffect(() => {
+    getBuilder();
     getGallery();
     getDecks();
     console.log(`this is the user ID:`, user.uid)
@@ -30,7 +37,9 @@ function UserPage() {
 
   return (
     <div>
+      {!builder ? (
       <PublicButton/>
+      ) : null}
       <Card className='h-100 w-50 border-3 border-white'>
         <h1>{user.displayName}</h1>
         <Card.Img variant='top'
