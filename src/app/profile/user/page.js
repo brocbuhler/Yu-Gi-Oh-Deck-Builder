@@ -32,13 +32,13 @@ function UserPage() {
     getBuilder();
     getGallery();
     getDecks();
-    console.log(`this is the user ID:`, user.uid)
-  }, []);
+    console.log(`this is the user ID:`, user.photoURL)
+  }, [builder]);
 
   return (
     <div>
       {!builder ? (
-      <PublicButton/>
+      <PublicButton update={getBuilder}/>
       ) : null}
       <Card className='h-100 w-50 border-3 border-white'>
         <h1>{user.displayName}</h1>

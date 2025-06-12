@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { getCardGallery } from "../../../api/cardData";
+import { getPublicCards } from "../../../api/cardData";
 import { Col, Row } from "react-bootstrap";
 import CardGallery from '@/components/CardGallery';
 
@@ -10,7 +10,7 @@ function Home() {
   const [cards, setCards] = useState([]);
 
   const getGallery = () => {
-    getCardGallery(true).then(setCards);
+    getPublicCards(true).then(setCards);
   };
 
   useEffect(() => {

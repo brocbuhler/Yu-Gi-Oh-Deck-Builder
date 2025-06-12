@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../utils/context/authContext';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { getDecksGallery } from '../../api/deckData';
+import { getSingleUser } from '../../api/savedUserData';
 
 const cardInit = {
       abilities:"",
@@ -20,12 +21,12 @@ const cardInit = {
 };
 
 export default function CardForm({card = cardInit}) {
-  console.log("cardForm running")
   const { user } = useAuth();
   const [cardInput, setCardInput] = useState(card);
   const router = useRouter();
   const [deckList, setDeckList] = useState([]);
   const [deckSelector, setDeckSelector] = useState('');
+  const [builder, setBuilder] = useState({})
 
   const cardChange = (e) => {
     const {name, value } = e.target;
@@ -39,19 +40,25 @@ export default function CardForm({card = cardInit}) {
     getDecksGallery(user.uid).then(setDeckList)
   }
 
-
+  const getBuilder = () => {
+    getSingleUser(user.uid).then(setBuilder)
+  }
 
 const cardSubmit = (e) => {
   e.preventDefault();
-
+  
   const payload = {
     ...cardInput,
     atk: parseInt(cardInput.atk, 10) || 0,
     defence: parseInt(cardInput.defence, 10) || 0,
     fanMade: true,
     uid: user.uid,
-  };
+  }
 
+  if (builder) {
+    payload.public = true;
+  }
+  
   if (card.firebaseKey) {
     const deckSelectorChecker = deckSelector && deckSelector !== card.prevDeckId;
 
@@ -109,6 +116,7 @@ const cardSubmit = (e) => {
 };
 
   useEffect(() => {
+    getBuilder()
     const initDeckId = card.prevDeckId
     setDeckSelector(initDeckId)
   setCardInput({

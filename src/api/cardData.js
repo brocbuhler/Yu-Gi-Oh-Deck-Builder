@@ -19,6 +19,23 @@ const getCardGallery = (tf) =>
       .catch(reject);
   });
 
+  const getPublicCards = (tf) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards.json?orderBy="public"&equalTo=${tf}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const allCards = Object.values(data || {});
+        const cardsWithoutDeck = allCards.filter((card) => !card.deckId);
+        resolve(cardsWithoutDeck);
+      })
+      .catch(reject);
+  });
+
   const getSingleCard = (firebaseKey) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/cards.json?orderBy="firebaseKey"&equalTo="${firebaseKey}"`, {
@@ -48,6 +65,19 @@ const getUserCards = (uid) =>
       })
       .catch(reject);
   });
+
+  const getCardsMakePublic = (uid) =>
+    new Promise((resolve, reject) => {
+      fetch(`${endpoint}/cards.json?orderBy="uid"&equalTo="${uid}"`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => resolve(data)) 
+        .catch(reject);
+    });
 
   const createCard = (payload) =>
   new Promise((resolve, reject) => {
@@ -103,4 +133,4 @@ const deleteCard = (firebaseKey) =>
       .catch(reject);
   });
 
-  export { getCardGallery, getUserCards, getCardbyDeck, createCard, updateCard, deleteCard, getSingleCard }
+  export { getCardGallery, getUserCards, getCardbyDeck, createCard, updateCard, deleteCard, getSingleCard, getCardsMakePublic, getPublicCards }
