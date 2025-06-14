@@ -7,16 +7,16 @@ import CardGallery from '@/components/CardGallery';
 import DrawButton from '@/components/DrawButton';
 import { useParams } from 'next/navigation';
 import { getSingleDeck } from '../../../../api/deckData';
-
+import { useAuth } from '../../../../utils/context/authContext';
 
 export default function DeckPage() {
+  const { user } = useAuth();
   const [cards, setCards] = useState([]);
   const [draws, setDraws] = useState([]);
   const [deck, setDeck] = useState({})
   const [drawMode, setDrawMode] = useState(false);
   const params = useParams();
   const deckId = params.firebaseKey
-  console.log('deckId:', deckId)
 
   const getGallery = () => {
     getCardbyDeck(deckId).then(setCards);
@@ -45,6 +45,8 @@ export default function DeckPage() {
     getDeck();
   }, []);
 
+  const userDelete = deck.uid === user?.uid;
+
   return (
     <>
       {!drawMode ? (<h1>{deck.title}</h1>) : null}
@@ -54,13 +56,13 @@ export default function DeckPage() {
         {drawMode && draws ? (
           draws.map(draw => (
           <Col key={draw.firebaseKey} xs={8} sm={6} md={5} lg={4}>
-            <CardGallery cardObj={draw} userDelete="true" update={getGallery} />
+            <CardGallery cardObj={draw} userDelete={userDelete} update={getGallery} />
           </Col>
           ))
         ) : (
           cards.map(card => (
             <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
-              <CardGallery cardObj={card} userDelete="true" update={getGallery} />
+              <CardGallery cardObj={card} userDelete={userDelete} update={getGallery} />
             </Col>
           ))
         )}

@@ -15,13 +15,16 @@ export default function NavBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Link className="nav-link" href="/deck/fan">
-              Fan Gallery
+              Creations
             </Link>
             <Link className="nav-link" href="/card/new">
-              New Card
+              Build Card
             </Link>
             <Link className="nav-link" href="/deck/new">
-              New Deck
+              Build Deck
+            </Link>
+            <Link className="nav-link" href="/profile/public">
+              Other Builders
             </Link>
             <Link className="nav-link" href="/profile/user">
               Account
