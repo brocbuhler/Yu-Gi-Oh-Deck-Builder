@@ -3,7 +3,7 @@ import { Button, Card, FloatingLabel, Form } from 'react-bootstrap'
 import '../styles/cards.css';
 import { useAuth } from '../utils/context/authContext';
 import { getDecksGallery } from '../api/deckData';
-import { createCard, deleteCard, updateCard } from '../api/cardData';
+import { copyCardToDeck, deleteCard, updateCardToDeck } from '../api/cardData';
 import { useRouter } from 'next/navigation';
 // aspect ratio for the cards is 86 : 125
 export default function CardGallery({ cardObj, userEdit = false, userDelete = false, update }) { 
@@ -22,20 +22,21 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
 
   const addCardToDeck = () => {
     const payload = {
-      abilities: cardObj.abilities,
-      atk: cardObj.atk,
-      class: cardObj.class,
-      defence: cardObj.defence,
+      name: cardObj.name,
+      vol: cardObj.vol,
+      attack: cardObj.attack,
+      attribute: cardObj.attribute,
+      defense: cardObj.defense,
       description: cardObj.description,
-      fanMade: cardObj.fanMade,
       image: cardObj.image,
       type: cardObj.type,
+      card: cardObj.card,
       deckId: deckSelector,
     };
 
-    createCard(payload).then(({ name }) => {
+    copyCardToDeck(payload).then(({ name }) => {
       const patchPayload = { ...payload, firebaseKey: name }; 
-      updateCard(patchPayload).then(() => {
+      updateCardToDeck(patchPayload).then(() => {
         if (update) update();
       });
     });
@@ -53,11 +54,13 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
       <Card.Img src={cardObj.image}/>
         <div className='card-overlay'>
           <div className='overlay-text'>
+            Card Name: {cardObj.name}, <br />
             Card Type: {cardObj.type},<br />
-            Card Attribute: {cardObj.class},<br />
-            Attack: {cardObj.atk},<br />
-            Defence: {cardObj.defence},<br />
-            {cardObj.abilities},<br />
+            Card Attribute: {cardObj.attribute},<br />
+            Attack: {cardObj.attack},<br />
+            Defense: {cardObj.defense},<br />
+            Vol: {cardObj.vol},<br />
+            {cardObj.card},<br />
             {cardObj.description}
           </div>
           <Button type="button"
