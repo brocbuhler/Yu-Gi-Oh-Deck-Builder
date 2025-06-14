@@ -30,7 +30,7 @@ const getSingleUser = (savedUID) =>
       .then((response) => response.json())
       .then((data) => {
         const user = data && Object.values(data)[0];
-        resolve(user);
+        resolve(user || null);
       })
       .catch(reject);
   });
@@ -62,5 +62,17 @@ const getSingleUser = (savedUID) =>
         .then((data) => resolve(Object.values(data)))
         .catch(reject);
     }); 
-
-  export { saveUser, updateUser, getUserGallery, getSingleUser }
+    
+    const deleteUser = (firebaseKey) =>
+      new Promise((resolve, reject) => {
+        fetch(`${endpoint}/users/${firebaseKey}.json`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => resolve(data)) 
+          .catch(reject);
+      });
+  export { saveUser, updateUser, getUserGallery, getSingleUser, deleteUser }
