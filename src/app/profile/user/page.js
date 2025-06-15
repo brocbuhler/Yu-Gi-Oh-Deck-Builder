@@ -18,7 +18,10 @@ function UserPage() {
   const [builder, setbuilder] = useState({});
 
   const getGallery = () => {
-    getUserCards(user.uid).then(setCards);
+    getUserCards(user.uid).then((fetchedCards) => {
+      const cardArray = fetchedCards ? Object.values(fetchedCards) : []
+      setCards(cardArray)
+    })
   };
 
   const getDecks = () => {

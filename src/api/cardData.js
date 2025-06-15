@@ -30,7 +30,7 @@ const getCardGallery = () =>
 
   const getSingleCard = (firebaseKey) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/cards.json?orderBy="firebaseKey"&equalTo="${firebaseKey}"`, {
+    fetch(`${endpoint}/cards/fanLibrary.json?orderBy="firebaseKey"&equalTo="${firebaseKey}"`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -43,24 +43,20 @@ const getCardGallery = () =>
 
 const getUserCards = (uid) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/cards.json?orderBy="uid"&equalTo="${uid}"`, {
+    fetch(`${endpoint}/cards/fanLibrary.json?orderBy="uid"&equalTo="${uid}"`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        const allCards = Object.values(data || {});
-        const cardsWithoutDeck = allCards.filter((card) => !card.deckId);
-        resolve(cardsWithoutDeck);
-      })
+      .then((data) => resolve(data)) 
       .catch(reject);
   });
 
   const getCardsMakePublic = (uid) =>
     new Promise((resolve, reject) => {
-      fetch(`${endpoint}/cards.json?orderBy="uid"&equalTo="${uid}"`, {
+      fetch(`${endpoint}/cards/fanLibrary.json?orderBy="uid"&equalTo="${uid}"`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -140,9 +136,22 @@ const deleteCard = (firebaseKey) =>
       .catch(reject);
   });
 
+  const deleteDeckCard = (firebaseKey) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards/deckLibrary/${firebaseKey}.json`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data)) 
+      .catch(reject);
+  });
+
   const getCardbyDeck = (deckId) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/cards.json?orderBy="deckId"&equalTo="${deckId}"`, {
+    fetch(`${endpoint}/cards/deckLibrary.json?orderBy="deckId"&equalTo="${deckId}"`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -153,4 +162,4 @@ const deleteCard = (firebaseKey) =>
       .catch(reject);
   });
 
-  export { getCardGallery, getUserCards, getCardbyDeck, copyCardToDeck, updateCardToDeck, deleteCard, getSingleCard, getCardsMakePublic, getPublicCards, createCard, updateCard }
+  export { getCardGallery, getUserCards, getCardbyDeck, copyCardToDeck, updateCardToDeck, deleteCard, getSingleCard, getCardsMakePublic, getPublicCards, createCard, updateCard, deleteDeckCard }

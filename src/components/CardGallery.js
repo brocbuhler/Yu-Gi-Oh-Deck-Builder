@@ -3,10 +3,10 @@ import { Button, Card, FloatingLabel, Form } from 'react-bootstrap'
 import '../styles/cards.css';
 import { useAuth } from '../utils/context/authContext';
 import { getDecksGallery } from '../api/deckData';
-import { copyCardToDeck, deleteCard, updateCardToDeck } from '../api/cardData';
+import { copyCardToDeck, deleteCard, deleteDeckCard, updateCardToDeck } from '../api/cardData';
 import { useRouter } from 'next/navigation';
 // aspect ratio for the cards is 86 : 125
-export default function CardGallery({ cardObj, userEdit = false, userDelete = false, update }) { 
+export default function CardGallery({ cardObj, userEdit = false, userDelete = false, deckCardDelete = false, update }) { 
   const router = useRouter();
   const [deckList, setDeckList] = useState([]);
   const [deckSelector, setDeckSelector] = useState('');
@@ -43,12 +43,15 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
   };
 
   const deleteUserCard = (key) => {
-    console.log("delete card:", key)
     deleteCard(key).then(() => {
       if (update) update();
     })
   };
-
+  const deleteCardFromDeck = (key) => {
+    deleteDeckCard(key).then(() => {
+      if (update) update();
+    })
+  }
   return (
     <Card className="card-hover h-100 border-1 border-white overflow-hidden">
       <Card.Img src={cardObj.image}/>
@@ -98,6 +101,16 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
                   <Button type='button' onClick={() => {
                     console.log("delete button clicked")
                     deleteUserCard(cardObj.firebaseKey);
+                  }}>
+                    Delete
+                  </Button>
+                </>
+              )}
+              {deckCardDelete && (
+                <>
+                  <Button type='button' onClick={() => {
+                    console.log("delete button clicked")
+                    deleteCardFromDeck(cardObj.firebaseKey);
                   }}>
                     Delete
                   </Button>
