@@ -45,7 +45,7 @@ export default function DeckPage() {
     getDeck();
   }, []);
 
-  const userDelete = deck.uid === user?.uid;
+  const deckCardDelete = deck.uid === user?.uid;
 
   return (
     <>
@@ -56,13 +56,13 @@ export default function DeckPage() {
         {drawMode && draws ? (
           draws.map(draw => (
           <Col key={draw.firebaseKey} xs={8} sm={6} md={5} lg={4}>
-            <CardGallery cardObj={draw} userDelete={userDelete} update={getGallery} />
+            <CardGallery cardObj={draw} deckCardDelete={deckCardDelete} update={getGallery} />
           </Col>
           ))
         ) : (
           cards.map(card => (
             <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
-              <CardGallery cardObj={card} userDelete={userDelete} update={getGallery} />
+              <CardGallery cardObj={card} deckCardDelete={deckCardDelete} update={getGallery} />
             </Col>
           ))
         )}

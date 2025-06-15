@@ -25,7 +25,10 @@ function UserPage() {
   }
 
   const getGallery = () => {
-    getUserCards(builder).then(setCards);
+    getUserCards(builder).then((fetchedCards) => {
+      const cardArray = fetchedCards ? Object.values(fetchedCards) : []
+      setCards(cardArray)
+    })
   };
 
   const getDecks = () => {

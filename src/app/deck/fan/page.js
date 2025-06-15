@@ -10,7 +10,10 @@ function Home() {
   const [cards, setCards] = useState([]);
 
   const getGallery = () => {
-    getPublicCards(true).then(setCards);
+    getPublicCards(true).then((fetchedCards) => {
+      const cardArray = fetchedCards ? Object.values(fetchedCards) : []
+      setCards(cardArray)
+    })
   };
 
   useEffect(() => {

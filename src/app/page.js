@@ -3,16 +3,15 @@
 
 import React, { useEffect, useState } from 'react';
 // import Link from 'next/link';
-import { Button, Col, Row } from 'react-bootstrap';
-import { useAuth } from '../utils/context/authContext';
-import { getCardGallery, getCardbyDeck } from '../api/cardData';
+import { Col, Row } from 'react-bootstrap';
+import { getCardGallery } from '../api/cardData';
 import CardGallery from '../components/CardGallery';
 
 function Home() {
   const [cards, setCards] = useState([]);
 
   const getGallery = () => {
-    getCardGallery(false).then(setCards);
+    getCardGallery().then(setCards);
   };
 
   useEffect(() => {
