@@ -58,13 +58,19 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
         <div className='card-overlay'>
           <div className='overlay-text'>
             Card Name: {cardObj.name}, <br />
-            Card Type: {cardObj.type},<br />
-            Card Attribute: {cardObj.attribute},<br />
-            Attack: {cardObj.attack},<br />
-            Defense: {cardObj.defense},<br />
-            Vol: {cardObj.vol},<br />
-            {cardObj.card},<br />
-            {cardObj.description}
+            {cardObj.card}<br />
+            {cardObj.description}<br />
+
+            {cardObj.card === 'Monster' && (
+            <div>
+              Card Attribute: {cardObj.attribute}<br />
+              Card Type: {cardObj.type}<br />
+              Attack: {cardObj.attack}<br />
+              Defense: {cardObj.defense}<br />
+            </div>
+            )}
+            
+            Vol: {cardObj.vol}
           </div>
           <Button type="button"
             disabled={!deckSelector}

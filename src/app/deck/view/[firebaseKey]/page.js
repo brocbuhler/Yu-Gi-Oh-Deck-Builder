@@ -8,6 +8,7 @@ import DrawButton from '@/components/DrawButton';
 import { useParams } from 'next/navigation';
 import { getSingleDeck } from '../../../../api/deckData';
 import { useAuth } from '../../../../utils/context/authContext';
+import SearchBar from '../../../../components/SearchBar';
 
 export default function DeckPage() {
   const { user } = useAuth();
@@ -15,13 +16,20 @@ export default function DeckPage() {
   const [draws, setDraws] = useState([]);
   const [deck, setDeck] = useState({})
   const [drawMode, setDrawMode] = useState(false);
+  const [searchCards, setSearchCards] = useState([])
+  const [searchState, setSearchState] = useState('')
+
   const params = useParams();
   const deckId = params.firebaseKey
 
   const getGallery = () => {
-    getCardbyDeck(deckId).then(setCards);
+    getCardbyDeck(deckId).then((fetchedCards) => {
+      setCards(fetchedCards)
+      setSearchCards(fetchedCards)
+    });;
     setDrawMode(false)
   };
+
   const getDeck = () => {
      getSingleDeck(deckId).then(setDeck);
   }
@@ -45,13 +53,20 @@ export default function DeckPage() {
     getDeck();
   }, []);
 
+  useEffect(() => {
+      const lowerSearch = searchState.toLowerCase();
+      setSearchCards(
+        cards.filter(card => card.name.toLowerCase().includes(lowerSearch))
+      )
+  }, [searchState, cards])
+
   const deckCardDelete = deck.uid === user?.uid;
 
   return (
     <>
       {!drawMode ? (<h1>{deck.title}</h1>) : null}
       <DrawButton draw={cardDraw} />
-
+      {!drawMode ? (<SearchBar cardList={setSearchState}/>) : null}
       <Row className='g-5'>
         {drawMode && draws ? (
           draws.map(draw => (
@@ -60,7 +75,7 @@ export default function DeckPage() {
           </Col>
           ))
         ) : (
-          cards.map(card => (
+          searchCards.map(card => (
             <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
               <CardGallery cardObj={card} deckCardDelete={deckCardDelete} update={getGallery} />
             </Col>

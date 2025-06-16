@@ -123,6 +123,20 @@ const getUserCards = (uid) =>
       .catch(reject);
   });
 
+  const updateCopy = (payload) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/cards/deckLibrary/${payload.firebaseKey}.json`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(Object.values(data)))
+      .catch(reject);
+  });
+
 const deleteCard = (firebaseKey) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/cards/fanLibrary/${firebaseKey}.json`, {
@@ -162,4 +176,4 @@ const deleteCard = (firebaseKey) =>
       .catch(reject);
   });
 
-  export { getCardGallery, getUserCards, getCardbyDeck, copyCardToDeck, updateCardToDeck, deleteCard, getSingleCard, getCardsMakePublic, getPublicCards, createCard, updateCard, deleteDeckCard }
+  export { getCardGallery, getUserCards, getCardbyDeck, copyCardToDeck, updateCardToDeck, deleteCard, getSingleCard, getCardsMakePublic, getPublicCards, createCard, updateCard, deleteDeckCard, updateCopy }
