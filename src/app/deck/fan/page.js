@@ -32,8 +32,11 @@ function Home() {
   }, [searchState, cards])
 
   return (
+  <div style={{ paddingTop: '7%', paddingLeft: '5%', paddingRight: '5%' }}>
     <div>
-    <SearchBar cardList={setSearchState}/>
+      <div style={{ marginBottom: '2rem' }}>
+        <SearchBar cardList={setSearchState} />
+      </div>
     <Row className='g-5'>
       {searchCards.map(card => (
         <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
@@ -42,6 +45,7 @@ function Home() {
       ))}
     </Row>
     </div>
+  </div>
   );
 }
 

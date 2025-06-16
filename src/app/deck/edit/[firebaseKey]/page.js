@@ -12,14 +12,9 @@ export default function EditDeck() {
 
   useEffect(() => {
     getSingleDeck(editDeck).then((data) => {
-      const dek = data[editDeck]
-      setdeckData(dek)
+      setdeckData(data)
     })
   }, [editDeck])
-
-  useEffect(() => {
-    console.log(deckData)
-  }, [deckData])
 
   return (
     <div>

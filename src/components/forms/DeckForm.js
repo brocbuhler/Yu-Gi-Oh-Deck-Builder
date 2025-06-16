@@ -15,6 +15,13 @@ export default function DeckForm({ dek = deckInit }) {
   const { user } = useAuth();
   const [deckInput, setDeckInput] = useState(dek);
   const router = useRouter();
+
+  const inputStyle = {
+    backgroundColor: '#2e2e2e',
+    color: 'white',
+    borderColor: '#444',
+  };
+
   const deckChange = (e) => {
     const {name, value } = e.target;
     setDeckInput((prevState) => ({
@@ -22,6 +29,7 @@ export default function DeckForm({ dek = deckInit }) {
       [name]: value,
     }));
   };
+
   const deckSubmit = (e) => {
     e.preventDefault();
     if (dek.firebaseKey) {
@@ -53,6 +61,7 @@ export default function DeckForm({ dek = deckInit }) {
             value={deckInput.title}
             onChange={deckChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
 
@@ -66,6 +75,7 @@ export default function DeckForm({ dek = deckInit }) {
             value={deckInput.description}
             onChange={deckChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
 

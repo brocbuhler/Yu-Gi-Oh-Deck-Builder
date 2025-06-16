@@ -88,11 +88,16 @@ export default function CardForm({card = cardInit}) {
 
   console.log("CardForm loaded with input:", cardInput);
 
+  const inputStyle = {
+    backgroundColor: '#2e2e2e',
+    color: 'white',
+    borderColor: '#444',
+  };
 
   return (
     <div>
       <Form onSubmit={cardSubmit}>
-        <h1>{card.firebaseKey ? "Edit" : "Make"} a card</h1>
+        <h1>{card.firebaseKey ? "Edit" : "Make"} a Card</h1>
 
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>
@@ -102,6 +107,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.name}
             onChange={cardChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
 
@@ -114,6 +120,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.image}
             onChange={cardChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
 
@@ -125,6 +132,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.card}
             onChange={cardChange}
             required
+            style={inputStyle}
           >
             <option value="">Select</option>
             <option value="Monster">Monster</option>
@@ -143,6 +151,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.description}
             onChange={cardChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
 
@@ -153,6 +162,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.deckId}
             onChange={cardChange}
             className="mb-3"
+            style={inputStyle}
           >
             <option value="">No deck selected</option>
             {deckList.map((deck) => (
@@ -174,6 +184,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.attribute}
             onChange={cardChange}
             required
+            style={inputStyle}
           >
             <option value="">Select a attribute</option>
               <option value="Dark">DARK</option>
@@ -194,6 +205,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.type}
             onChange={cardChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
 
@@ -206,6 +218,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.attack}
             onChange={cardChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
         
@@ -218,6 +231,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.defense}
             onChange={cardChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
 
@@ -230,6 +244,7 @@ export default function CardForm({card = cardInit}) {
             value={cardInput.monsterLevel}
             onChange={cardChange}
             required
+            style={inputStyle}
           />
         </Form.Group>
         </>
