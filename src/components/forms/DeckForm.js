@@ -25,7 +25,6 @@ export default function DeckForm({ dek = deckInit }) {
   const deckSubmit = (e) => {
     e.preventDefault();
     if (dek.firebaseKey) {
-      console.log("edit not set up yet");
       const payload = { ...deckInput, uid: user.uid };
       updateDeck(payload).then(() => {
         router.push("/profile/user")
