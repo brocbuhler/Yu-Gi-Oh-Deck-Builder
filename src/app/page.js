@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-// import Link from 'next/link';
 import { Col, Row } from 'react-bootstrap';
 import { getCardGallery } from '../api/cardData';
 import CardGallery from '../components/CardGallery';
@@ -60,23 +59,23 @@ function Home() {
 
       const defenseFilter = 
         cardFilters.defense === '' ||
-        (card.defense !== undefined && card.defense !== null && parseInt(card.defense) >= parseInt(cardFilters.defense))
+        (card.defense !== undefined && card.defense !== null && parseInt(card.defense) >= parseInt(cardFilters.defense));
 
       const monsterLevelFilter =
         cardFilters.monsterLevel === '' ||
-        (card.monsterLevel !== undefined && card.monsterLevel !== null && parseInt(card.monsterLevel) == parseInt(cardFilters.monsterLevel))
+        (card.monsterLevel !== undefined && card.monsterLevel !== null && parseInt(card.monsterLevel) == parseInt(cardFilters.monsterLevel));
 
       const cardTypeFilter = 
         cardFilters.card === '' ||
-        (card.card && card.card == cardFilters.card)
+        (card.card && card.card == cardFilters.card);
 
       const volFilter = 
         cardFilters.vol === '' ||
-        (card.vol && card.vol == cardFilters.vol)
+        (card.vol && card.vol == cardFilters.vol);
 
       const attributeFilter =
         cardFilters.attribute === '' ||
-        (card.attribute && card.attribute == cardFilters.attribute)
+        (card.attribute && card.attribute == cardFilters.attribute);
 
       return nameMatch && attackFilter && defenseFilter && monsterLevelFilter && cardTypeFilter && volFilter && attributeFilter;
     });
@@ -85,9 +84,13 @@ function Home() {
   }, [cardFilters, searchState, cards]);
 
   return (
-    <div>
-      <SearchBar cardList={setSearchState} />
-      <Filters filterList={filterUse} />
+    <div style={{ paddingTop: '7%', paddingLeft: '5%', paddingRight: '5%' }}>
+      <div style={{ marginBottom: '2rem' }}>
+        <SearchBar cardList={setSearchState} />
+      </div>
+      <div style={{ marginBottom: '2rem' }}>
+        <Filters filterList={filterUse} />
+      </div>
       <Row className="g-5">
         {searchCards.map((card) => (
           <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
