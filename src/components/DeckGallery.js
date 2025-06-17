@@ -4,7 +4,6 @@ import { deleteDeck } from '../api/deckData';
 import { useRouter } from 'next/navigation';
 import deleteDecksCards from '../api/mergedData';
 
-// aspect ratio for the cards is 86 : 125
 
 export default function DeckGallery({ deckObj, userEdit = false, userDelete = false, update }) {
   const router = useRouter();
@@ -13,7 +12,6 @@ export default function DeckGallery({ deckObj, userEdit = false, userDelete = fa
     deleteDeck(key);
   };
 
-  // 🌇 Gradient button style
   const gradientStyle = {
     background: 'linear-gradient(90deg, #ffcc33, #ff6600)',
     color: 'white',
@@ -25,7 +23,6 @@ export default function DeckGallery({ deckObj, userEdit = false, userDelete = fa
     transition: 'background 0.3s ease-in-out'
   };
 
-  // 🕶️ Dark background style for the card
   const cardStyle = {
     backgroundColor: '#1e1e1e',
     color: 'white',

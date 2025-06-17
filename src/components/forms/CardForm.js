@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../utils/context/authContext';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { getDecksGallery } from '../../api/deckData';
+import { getSingleUser } from '../../api/savedUserData';
 
 const cardInit = {
       name:"",
@@ -23,6 +24,7 @@ export default function CardForm({card = cardInit}) {
   const [cardInput, setCardInput] = useState(card);
   const router = useRouter();
   const [deckList, setDeckList] = useState([]);
+  const [builder, setBuilder] = useState({})
 
   const cardChange = (e) => {
     const {name, value } = e.target;
@@ -36,9 +38,17 @@ export default function CardForm({card = cardInit}) {
     getDecksGallery(user.uid).then(setDeckList)
   }
 
+  const getBuilder = () => {
+    getSingleUser(user.uid).then(setBuilder)
+  }
+
   const cardSubmit = (e) => {
     e.preventDefault();
     const payload = { ...cardInput, uid: user.uid}
+    
+    if (builder) {
+      payload.public = true;
+    }
 
     const copyCard = (cardData) => {
       if (payload.deckId) {
@@ -70,6 +80,7 @@ export default function CardForm({card = cardInit}) {
   }
 
   useEffect(() => {
+    getBuilder()
     setCardInput({
       name: card.name || '',
       type: card.type || '',
@@ -250,7 +261,7 @@ export default function CardForm({card = cardInit}) {
         </>
         )}
 
-        <Button type="submit">{card.firebaseKey ? "Edit" : "Make"} card</Button>
+        <Button type="submit" background='linear-gradient(90deg, #ffcc33, #ff6600)'>{card.firebaseKey ? "Edit" : "Make"} card</Button>
       </Form>
     </div>
   );
