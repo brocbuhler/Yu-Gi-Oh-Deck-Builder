@@ -11,6 +11,17 @@ const deckInit = {
   title: "",
 };
 
+const gradientStyle = {
+    background: 'linear-gradient(90deg, #ffcc33, #ff6600)',
+    color: 'white',
+    border: 'none',
+    fontWeight: 'bold',
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    marginTop: '0.5rem',
+    marginRight: '0.5rem',
+  };
+
 export default function DeckForm({ dek = deckInit }) {
   const { user } = useAuth();
   const [deckInput, setDeckInput] = useState(dek);
@@ -79,7 +90,7 @@ export default function DeckForm({ dek = deckInit }) {
           />
         </Form.Group>
 
-        <Button type="submit">{dek.firebaseKey ? "Edit" : "Make"} Deck</Button>
+        <Button type="submit" style={gradientStyle}>{dek.firebaseKey ? "Edit" : "Make"} Deck</Button>
       </Form>
     </div>
   );

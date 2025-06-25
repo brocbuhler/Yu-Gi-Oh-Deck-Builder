@@ -48,13 +48,31 @@ function UserPage() {
       {!builder ? (
       <PublicButton/>
       ) : null}
-      <Card className='h-100 w-50 border-3 border-white'>
-        <h1>{user.savedDisplayName}</h1>
+      <Card className="mx-auto mb-5 border-2 border-white"
+        style={{
+          backgroundColor: '#2c2c2c',
+          color: 'white',
+          width: '350px',
+          padding: '1.5rem',
+        }}>
+        <h1 style={{ textAlign: 'center' }}>{user.savedDisplayName}</h1>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
         <Card.Img variant='top'
           src={user.savedImg}
-          style={{ width: '100%', maxHeight: '300px', objectFit: 'cover' }}
+          alt="/icons/Account.png"
+          style={{
+              width: '150px',
+              height: '150px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              border: '2px solid white',
+            }}
         />
+        </div>
       </Card>
+      { cards.length > 0 && (
+      <h3 style={{ marginBottom: '1rem' }}>Their Cards</h3>
+      )}
       <Row className='g-5'>
         {cards.map(card => (
           <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
@@ -63,6 +81,9 @@ function UserPage() {
         ))}
       </Row>
       <div>
+        { decks.length > 0 && (
+          <h3 style={{ marginBottom: '1rem' }}>Their Decks</h3>
+        )}
       <Row className='g-5'>
         {decks.map(deck => (
           <DeckGallery deckObj={deck} update={getDecks}/>

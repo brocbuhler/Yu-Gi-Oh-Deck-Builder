@@ -19,6 +19,17 @@ const cardInit = {
       card:"",
 };
 
+const gradientStyle = {
+    background: 'linear-gradient(90deg, #ffcc33, #ff6600)',
+    color: 'white',
+    border: 'none',
+    fontWeight: 'bold',
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    marginTop: '0.5rem',
+    marginRight: '0.5rem',
+  };
+
 export default function CardForm({card = cardInit}) {
   const { user } = useAuth();
   const [cardInput, setCardInput] = useState(card);
@@ -261,7 +272,7 @@ export default function CardForm({card = cardInit}) {
         </>
         )}
 
-        <Button type="submit" background='linear-gradient(90deg, #ffcc33, #ff6600)'>{card.firebaseKey ? "Edit" : "Make"} card</Button>
+        <Button type="submit" style={gradientStyle}>{card.firebaseKey ? "Edit" : "Make"} card</Button>
       </Form>
     </div>
   );
