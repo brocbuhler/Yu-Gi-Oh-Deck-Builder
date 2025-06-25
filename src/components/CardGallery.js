@@ -5,8 +5,10 @@ import { useAuth } from '../utils/context/authContext';
 import { getDecksGallery } from '../api/deckData';
 import { copyCardToDeck, deleteCard, deleteDeckCard, updateCardToDeck } from '../api/cardData';
 import { useRouter } from 'next/navigation';
+import Select from 'react-select';
 
-// aspect ratio for the cards is 86 : 125
+
+// aspect ratio for the cards is 271 : 395
 export default function CardGallery({ cardObj, userEdit = false, userDelete = false, deckCardDelete = false, update }) {
   const router = useRouter();
   const [deckList, setDeckList] = useState([]);
@@ -55,7 +57,12 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
     });
   };
 
-  // 🌇 Gradient button style
+  const deckOptions = 
+    deckList.map(deck => ({
+      value: deck.firebaseKey,
+      label: `${deck.title} | ${deck.description}`
+    }))
+  
   const gradientStyle = {
     background: 'linear-gradient(90deg, #ffcc33, #ff6600)',
     color: 'white',
@@ -65,7 +72,14 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
     borderRadius: '8px',
     marginTop: '0.5rem',
     marginRight: '0.5rem',
-    transition: 'background 0.3s ease-in-out'
+    transition: 'background 0.3s ease-in-out',
+    opacity: '0.85'
+  };
+
+  const iconStyle = {
+    width: '36px',   
+    height: '36px',  
+    marginLeft: '10px',
   };
 
   return (
@@ -95,37 +109,63 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
           Vol: {cardObj.vol}
         </div>
 
+        {!deckSelector && (
+          <div className="text-warning mt-2">Select a deck!</div>
+        )}
+
+        <FloatingLabel controlId="floatingSelect" >
+          <Select
+          options={deckOptions}
+          name='deckId'
+          value={deckOptions.find(option => option.value === deckSelector) || null}
+          onChange={(selection) => setDeckSelector(selection.value)}
+          placeholder="..."
+          isSearchable={false}
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              background: 'linear-gradient(90deg, #ffcc33, #ff6600)',
+              color: 'white',
+              transition: 'background 0.3s ease-in-out',
+              opacity: 0.85,
+            }),
+            menu: (provided) => ({
+              ...provided,
+              background: 'linear-gradient(90deg, #ffcc33, #ff6600)',
+              color: 'white',
+              transition: 'background 0.3s ease-in-out',
+              opacity: 0.85,
+            }),
+            option: (provided) => ({
+              ...provided,
+              background: 'linear-gradient(90deg, #ffcc33, #ff6600)',
+              color: 'white',
+              transition: 'background 0.3s ease-in-out',
+              opacity: 0.85,
+            }),
+            singleValue: (provided) => ({
+              ...provided,
+              color: 'white',
+            }),
+          }}
+          />
+        </FloatingLabel>
+
         <Button
           type="button"
           style={gradientStyle}
-          disabled={!deckSelector}
           onClick={() => {
-            addCardToDeck();
-            alert('Card added to deck!');
+            if (!deckSelector) {
+              alert('No deck selected!')
+            } else {
+              addCardToDeck();
+              alert('Card added to deck!');
+            }
           }}
         >
           Add to Deck?
+          <img src="/icons/Card.png" alt="Card Icon" style={iconStyle} />
         </Button>
-
-        {!deckSelector && (
-          <div className="text-warning mt-2">Please select a deck first</div>
-        )}
-
-        <FloatingLabel controlId="floatingSelect" label="Decks:">
-          <Form.Select
-            aria-label="Decks:"
-            name="deckId"
-            onChange={(e) => setDeckSelector(e.target.value)}
-            className="mb-3"
-          >
-            <option value="">Decks:</option>
-            {deckList.map((deck) => (
-              <option key={deck.firebaseKey} value={deck.firebaseKey}>
-                TITLE: {deck.title} | {deck.description}
-              </option>
-            ))}
-          </Form.Select>
-        </FloatingLabel>
 
         {userEdit && (
           <Button
@@ -135,20 +175,38 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
               router.push(`/card/edit/${cardObj.firebaseKey}`);
             }}
           >
-            Edit
+            Reforge
+          <img src="/icons/Anvil.png" alt="Anvil Icon" style={iconStyle} />
           </Button>
         )}
 
         {userDelete && (
-          <Button
+          <button
             type="button"
-            style={gradientStyle}
+            style={{
+              position: 'absolute',          
+              bottom: '1rem',                
+              right: '1rem',              
+              backgroundImage: `url("/icons/Shadow-Realm.png")`,
+              backgroundSize: 'cover',            
+              backgroundPosition: 'center',       
+              backgroundRepeat: 'no-repeat',
+              color: 'white',
+              border: 'none',
+              fontWeight: 'bold',
+              padding: '1.5rem 2rem',
+              borderRadius: '200px',
+              transition: 'background 0.3s ease-in-out',
+              opacity: '0.65'
+            }}
             onClick={() => {
               deleteUserCard(cardObj.firebaseKey);
             }}
+            background=""
           >
-            Delete
-          </Button>
+            Send to <br/>
+            Shadow Realm
+          </button>
         )}
 
         {deckCardDelete && (
