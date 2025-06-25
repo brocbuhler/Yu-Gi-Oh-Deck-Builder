@@ -19,7 +19,7 @@ const iconStyle = {
 };
 
 
-export default function NavBar() {
+export default function NavBar({ toggled }) {
   return (
     <div
       style={{
@@ -32,8 +32,9 @@ export default function NavBar() {
         padding: '1rem',
         position: 'fixed',
         top: 0,
-        left: 0,
+        left: toggled ? '0' : '-300px', 
         zIndex: 1000,
+        transition: 'left 0.3s ease-in-out', 
       }}
     >
       <Link

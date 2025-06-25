@@ -56,7 +56,7 @@ function UserPage() {
           <Card.Img
             variant="top"
             src={user.photoURL}
-            alt="User"
+            alt="/icons/Account.png"
             style={{
               width: '150px',
               height: '150px',
