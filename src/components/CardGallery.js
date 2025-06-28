@@ -84,7 +84,7 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
 
   return (
     <Card className="card-hover h-100 border-1 border-white overflow-hidden"
-    style={{ minHeight: 'px' }}>
+    style={{ minHeight: '400px' }}>
       <Card.Img src={cardObj.image} />
       <div className="card-overlay">
         <div className="overlay-text">
@@ -107,7 +107,9 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
             </div>
           )}
 
-          Vol: {cardObj.vol}
+          {cardObj.vol && (
+            <div>Vol: {cardObj.vol}</div>
+          )}
         </div>
 
         {!deckSelector && (
