@@ -82,7 +82,7 @@ function UserPage() {
       </Row>
 
       { decks.length > 0 && (<h3 style={{ marginBottom: '1rem' }}>Your Decks</h3>)}
-      <Row className="g-4">
+      <Row className="g-4" style={{ justifyContent: 'center'}}>
         {decks.map((deck) => (
           <Col key={deck.firebaseKey} xs={8} sm={6} md={5} lg={4}>
             <DeckGallery deckObj={deck} userEdit="true" userDelete="true" update={getDecks} />

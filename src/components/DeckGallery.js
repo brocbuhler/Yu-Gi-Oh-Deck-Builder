@@ -24,7 +24,9 @@ export default function DeckGallery({ deckObj, userEdit = false, userDelete = fa
   };
 
   const cardStyle = {
-    backgroundColor: '#1e1e1e',
+    backgroundImage: 'url("/images/YGOdeckGraphic.png")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
     color: 'white',
     padding: '1rem',
     border: '1px solid #333'

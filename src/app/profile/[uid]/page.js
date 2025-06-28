@@ -84,7 +84,7 @@ function UserPage() {
         { decks.length > 0 && (
           <h3 style={{ marginBottom: '1rem' }}>Their Decks</h3>
         )}
-      <Row className='g-5'>
+      <Row className='g-5' style={{ justifyContent: 'center'}}>
         {decks.map(deck => (
           <DeckGallery deckObj={deck} update={getDecks}/>
         ))}
