@@ -83,7 +83,8 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
   };
 
   return (
-    <Card className="card-hover h-100 border-1 border-white overflow-hidden">
+    <Card className="card-hover h-100 border-1 border-white overflow-hidden"
+    style={{ minHeight: 'px' }}>
       <Card.Img src={cardObj.image} />
       <div className="card-overlay">
         <div className="overlay-text">
