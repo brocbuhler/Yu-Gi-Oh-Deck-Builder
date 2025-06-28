@@ -9,6 +9,7 @@ import { useParams } from 'next/navigation';
 import { getSingleDeck } from '../../../../api/deckData';
 import { useAuth } from '../../../../utils/context/authContext';
 import SearchBar from '../../../../components/SearchBar';
+import DeckStats from '../../../../components/DeckStats';
 
 export default function DeckPage() {
   const { user } = useAuth();
@@ -65,7 +66,6 @@ export default function DeckPage() {
   return (
     <div style={{ paddingTop: '7%', paddingLeft: '5%', paddingRight: '5%' }}>
       {!drawMode ? <h1 style={{ color: 'white' }}>{deck.title}</h1> : null}
-
       <div
         style={{
           backgroundColor: '#343a40',
@@ -78,10 +78,11 @@ export default function DeckPage() {
       >
         <DrawButton draw={cardDraw} />
       </div>
-
+        
       {!drawMode ? (
         <div style={{ marginBottom: '2rem' }}>
           <SearchBar cardList={setSearchState} />
+          <DeckStats deckId={deckId}/>
         </div>
       ) : null}
 

@@ -81,7 +81,7 @@ function UserPage() {
         ))}
       </Row>
 
-      { decks.length > 0 && (<h3 style={{ marginBottom: '1rem' }}>Your Decks</h3>)}
+      { decks.length > 0 && (<h3 style={{ marginBottom: '1rem', }}>Your Decks</h3>)}
       <Row className="g-4">
         {decks.map((deck) => (
           <Col key={deck.firebaseKey} xs={12} style={{ minHeight: '699px', minWidth: '829px' }}>
