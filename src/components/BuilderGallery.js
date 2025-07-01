@@ -5,6 +5,8 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 
 export default function BuilderGallery({ userObj }) {
+  const imgSrc = userObj.Img ? userObj.Img : "/icons/Account.png"
+
   return (
     <div>
       <Card
@@ -13,7 +15,7 @@ export default function BuilderGallery({ userObj }) {
       >
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
           <Card.Img
-            src={userObj.savedImg}
+            src={imgSrc}
             style={{
               width: '150px',
               height: '150px',

@@ -86,7 +86,7 @@ function UserPage() {
         )}
       <Row className="g-4">
         {decks.map((deck) => (
-          <Col key={deck.firebaseKey} xs={8} sm={6} md={5} lg={4}>
+          <Col key={deck.firebaseKey} xs={12} >
             <DeckGallery deckObj={deck} update={getDecks} />
           </Col>
         ))}

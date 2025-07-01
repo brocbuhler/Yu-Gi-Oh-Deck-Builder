@@ -38,7 +38,7 @@ export default function page() {
       </div>
       <Row>
         {searchBuilders.map(builder => (
-          <Col key={builder.firebaseKey} xs={12}>
+          <Col key={builder.firebaseKey} xs={8} sm={6} md={5} lg={4}>
             <BuilderGallery userObj={builder} update={getGallery} />
           </Col>
         ))}
