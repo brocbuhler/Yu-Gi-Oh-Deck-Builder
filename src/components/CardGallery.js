@@ -34,6 +34,7 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
       image: cardObj.image,
       type: cardObj.type,
       card: cardObj.card,
+      card: cardObj.monsterLevel,
       deckId: deckSelector,
     };
 

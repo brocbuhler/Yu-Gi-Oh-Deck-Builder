@@ -81,8 +81,8 @@ export default function DeckPage() {
         
       {!drawMode ? (
         <div style={{ marginBottom: '2rem' }}>
-          <SearchBar cardList={setSearchState} />
           <DeckStats deckId={deckId}/>
+          <SearchBar cardList={setSearchState} />
         </div>
       ) : null}
 

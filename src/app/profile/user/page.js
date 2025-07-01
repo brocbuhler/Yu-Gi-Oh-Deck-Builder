@@ -84,7 +84,7 @@ function UserPage() {
       { decks.length > 0 && (<h3 style={{ marginBottom: '1rem', }}>Your Decks</h3>)}
       <Row className="g-4">
         {decks.map((deck) => (
-          <Col key={deck.firebaseKey} xs={12} style={{ minHeight: '699px', minWidth: '829px' }}>
+          <Col key={deck.firebaseKey} xs={12}>
             <DeckGallery deckObj={deck} userEdit="true" userDelete="true" update={getDecks} />
           </Col>
         ))}
