@@ -12,10 +12,13 @@ export default function DeckStats({ deckId, update }) {
   const [ deckList, setDeckList ] = useState([])
 
   const statBox = {
-    height: '20%',
-    width: '20%',
-    background: '#495057',
-    boarderRadius: '25%'
+    backgroundColor: '#343a40',
+    border: '1px solid #495057',
+    borderRadius: '0.375rem',
+    padding: '0.5rem',
+    marginBottom: '1.5rem',
+    width: 'fit-content',
+    fontSize: '1.5rem'
   }
 
   const deckGrabber = () => {
@@ -24,14 +27,6 @@ export default function DeckStats({ deckId, update }) {
   }
 
   const statsCalculator = () => {
-    let addedAtk = 0
-    deckList.forEach((card) => {
-    if (card.attack) {addedAtk += parseInt(card.attack)}
-    })
-  }
-
-  useEffect(() => {
-    deckGrabber()
     let addedAtk = 0
     let addedDef = 0
     let addedLvl = 0
@@ -51,20 +46,28 @@ export default function DeckStats({ deckId, update }) {
     setAvgAttack((Math.round((addedAtk / monsterCards) / 100)) * 100)
     setAvgDefense((Math.round((addedDef / monsterCards) / 100)) *100)
     setAvgLevel(Math.round(addedLvl / monsterCards))
+    setSpellChance(Math.round((spellCards / cardAmount) * 100))
+    setTrapChance(Math.round((trapCards / cardAmount) * 100))
+    setMonsterChance(Math.round((monsterCards / cardAmount) * 100))
+  }
+
+  useEffect(() => {
+    deckGrabber()
+    statsCalculator()
     if (update) update()
   }, [deckList])
 
   return (
     <div style={statBox}>
+      <h3 style={{textDecoration: 'underline'}}>DeckStats</h3>
       <div>
         Average Attack: {avgAttack} <br />
         Average defense: {avgDefense} <br />
         Average Level: {avgLevel} <br />
-        {/* 
-        {spellChance}
-        {trapChance}
-        {monsterChance}
-        {cardAmount} */}
+        Draw chance... <br />
+        Spell: {spellChance}% <br />
+        Trap: {trapChance}% <br />
+        Monster: {monsterChance}%
       </div>
     </div>
   )
