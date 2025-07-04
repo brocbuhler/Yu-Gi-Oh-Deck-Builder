@@ -24,20 +24,31 @@ export default function CardGallery({ cardObj, userEdit = false, userDelete = fa
   }, []);
 
   const addCardToDeck = () => {
-    const payload = {
-      name: cardObj.name,
-      vol: cardObj.vol,
-      attack: cardObj.attack,
-      attribute: cardObj.attribute,
-      defense: cardObj.defense,
-      description: cardObj.description,
-      image: cardObj.image,
-      type: cardObj.type,
-      card: cardObj.card,
-      card: cardObj.monsterLevel,
-      deckId: deckSelector,
-    };
-
+    let payload = {}
+    if (cardObj.card == "Monster") {
+      payload = {
+        attack: cardObj.attack,
+        attribute: cardObj.attribute,
+        card: cardObj.card,
+        defense: cardObj.defense,
+        description: cardObj.description,
+        image: cardObj.image,
+        monsterLevel: cardObj.monsterLevel,
+        name: cardObj.name,
+        type: cardObj.type,
+        vol: cardObj.vol,
+        deckId: deckSelector
+      }
+    } else {
+      payload = {
+        card: cardObj.card,
+        description: cardObj.description,
+        image: cardObj.image,
+        name: cardObj.name,
+        vol: cardObj.vol,
+        deckId: deckSelector
+      }
+    }
     copyCardToDeck(payload).then(({ name }) => {
       const patchPayload = { ...payload, firebaseKey: name };
       updateCardToDeck(patchPayload).then(() => {
