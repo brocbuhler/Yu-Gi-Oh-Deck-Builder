@@ -20,18 +20,20 @@ function ViewDirectorBasedOnUserAuthStatus({ children }) {
         <button onClick={() => setOpenNavbar(!openNavbar)}
           style={{
             position: 'fixed',
+            outline: 'none',
+            boxShadow: 'none',
             left: openNavbar ? '300px' : '0',
             zIndex: 1100,
             padding: '0.5rem 1rem',
-            backgroundColor: '#ff8c00',
-            color: 'white',
             border: 'none',
-            borderRadius: '8px',
+            backgroundColor: '#da8804',
+            color: 'white',
+            borderRadius: '0% 65% 65% 0%',
             fontSize: '1.2rem',
-            boxShadow: '1px 1px 4px rgba(0,0,0,0.5)',
             top: '50%',
             transform: 'translateY(-50%)',
             transition: 'left 0.3s ease-in-out', 
+            height: '15%', 
           }}
         >
           {openNavbar && (

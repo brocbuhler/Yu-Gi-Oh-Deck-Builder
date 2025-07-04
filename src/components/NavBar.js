@@ -34,7 +34,7 @@ export default function NavBar({ toggled }) {
         top: 0,
         left: toggled ? '0' : '-300px', 
         zIndex: 1000,
-        transition: 'left 0.3s ease-in-out', 
+        transition: 'left 0.3s ease-in-out',
       }}
     >
       <Link

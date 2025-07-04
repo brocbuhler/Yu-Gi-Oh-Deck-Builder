@@ -9,6 +9,7 @@ import { useParams } from 'next/navigation';
 import { getSingleDeck } from '../../../../api/deckData';
 import { useAuth } from '../../../../utils/context/authContext';
 import SearchBar from '../../../../components/SearchBar';
+import DeckStats from '../../../../components/DeckStats';
 
 export default function DeckPage() {
   const { user } = useAuth();
@@ -65,26 +66,30 @@ export default function DeckPage() {
   return (
     <div style={{ paddingTop: '7%', paddingLeft: '5%', paddingRight: '5%' }}>
       {!drawMode ? <h1 style={{ color: 'white' }}>{deck.title}</h1> : null}
-
-      <div
-        style={{
-          backgroundColor: '#343a40',
-          border: '1px solid #495057',
-          borderRadius: '0.375rem',
-          padding: '0.5rem',
-          marginBottom: '1.5rem',
-          width: 'fit-content',
-        }}
-      >
-        <DrawButton draw={cardDraw} />
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between'
+      }}>
+        <div
+          style={{
+            backgroundColor: '#343a40',
+            border: '1px solid #495057',
+            borderRadius: '0.375rem',
+            padding: '0.5rem',
+            marginBottom: '1.5rem',
+            width: 'fit-content',
+          }}
+        >
+          <DrawButton draw={cardDraw} />
+        </div>
+        {!drawMode ? (<DeckStats deckId={deckId}/>) : null}
       </div>
-
       {!drawMode ? (
         <div style={{ marginBottom: '2rem' }}>
           <SearchBar cardList={setSearchState} />
         </div>
       ) : null}
-
+      
       <Row className="g-5">
         {drawMode && draws ? (
           draws.map((draw) => (

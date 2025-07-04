@@ -84,9 +84,11 @@ function UserPage() {
         { decks.length > 0 && (
           <h3 style={{ marginBottom: '1rem' }}>Their Decks</h3>
         )}
-      <Row className='g-5'>
-        {decks.map(deck => (
-          <DeckGallery deckObj={deck} update={getDecks}/>
+      <Row className="g-4">
+        {decks.map((deck) => (
+          <Col key={deck.firebaseKey} xs={12} >
+            <DeckGallery deckObj={deck} update={getDecks} />
+          </Col>
         ))}
       </Row>
       </div>

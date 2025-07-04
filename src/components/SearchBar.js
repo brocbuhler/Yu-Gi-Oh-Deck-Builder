@@ -4,7 +4,7 @@ import { Form, InputGroup } from 'react-bootstrap';
 export default function SearchBar({ cardList }) {
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
-      <InputGroup style={{ transform: 'scale(1.25)', transformOrigin: 'top left' }}>
+      <InputGroup style={{ transform: 'scale(1.25)', transformOrigin: 'top left', width: '80%'}}>
         <InputGroup.Text style={{ 
           backgroundColor: '#343a40', 
           border: '1px solid #495057',

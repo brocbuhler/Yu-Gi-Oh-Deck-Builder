@@ -72,7 +72,7 @@ function UserPage() {
         </Card.Text>
       </Card>
 
-      <h3 style={{ marginBottom: '1rem' }}>Your Cards</h3>
+      { cards.length > 0 && (<h3 style={{ marginBottom: '1rem' }}>Your Cards</h3>)}
       <Row className="g-4 mb-5">
         {cards.map((card) => (
           <Col key={card.firebaseKey} xs={8} sm={6} md={5} lg={4}>
@@ -81,10 +81,10 @@ function UserPage() {
         ))}
       </Row>
 
-      <h3 style={{ marginBottom: '1rem' }}>Your Decks</h3>
+      { decks.length > 0 && (<h3 style={{ marginBottom: '1rem', }}>Your Decks</h3>)}
       <Row className="g-4">
         {decks.map((deck) => (
-          <Col key={deck.firebaseKey} xs={8} sm={6} md={5} lg={4}>
+          <Col key={deck.firebaseKey} xs={12}>
             <DeckGallery deckObj={deck} userEdit="true" userDelete="true" update={getDecks} />
           </Col>
         ))}

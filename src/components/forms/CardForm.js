@@ -17,6 +17,7 @@ const cardInit = {
       image:"",
       type:"",
       card:"",
+      monsterLevel: "",
 };
 
 const gradientStyle = {
