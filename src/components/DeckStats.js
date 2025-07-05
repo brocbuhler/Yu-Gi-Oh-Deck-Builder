@@ -60,14 +60,17 @@ export default function DeckStats({ deckId, update }) {
   return (
     <div style={statBox}>
       <h3 style={{textDecoration: 'underline'}}>DeckStats</h3>
-      <div>
+      <div style={{display: 'flex', justifyContent: 'start', gap: '1rem'}}>
+        <div>
         Average Attack: {avgAttack} <br />
         Average defense: {avgDefense} <br />
         Average Level: {avgLevel} <br />
-        Draw chance... <br />
-        Spell: {spellChance}% <br />
-        Trap: {trapChance}% <br />
-        Monster: {monsterChance}%
+        </div>
+        <div>
+        Spell Chance: {spellChance}% <br />
+        Trap Chance: {trapChance}% <br />
+        Monster Chance: {monsterChance}%
+        </div>
       </div>
     </div>
   )

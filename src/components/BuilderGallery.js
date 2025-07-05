@@ -5,7 +5,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 
 export default function BuilderGallery({ userObj }) {
-  const imgSrc = userObj.Img ? userObj.Img : "/icons/Account.png"
+  const imgSrc = userObj.savedImg ? userObj.savedImg : "/icons/Account.png"
 
   return (
     <div>
